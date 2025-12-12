@@ -23,6 +23,7 @@
     --transition: 300ms;
   }
 
+  /* DARK ROSE-GOLD VARIANT (set .dark on body) */
   body.dark{
     --rg-1:#2b1f22;
     --rg-2:#6b3b45;
@@ -37,7 +38,7 @@
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
 
-  /* Loader */
+  /* ========== Loader ========== */
   #loader {
     position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
     background: linear-gradient(180deg,var(--rg-1),#fff);
@@ -54,6 +55,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .loader-text{margin-top:14px;font-weight:600;color:var(--text);font-size:14px;letter-spacing:0.4px}
 
+  /* ========== Portrait-only overlay ========== */
   #orientation-lock {
     position:fixed;inset:0;display:none;align-items:center;justify-content:center;
     background: rgba(0,0,0,0.6);z-index:99998;color:white;padding:24px;text-align:center;
@@ -61,6 +63,8 @@
   #orientation-lock.show{display:flex}
   #orientation-lock .box{max-width:420px}
 
+  /* ========== page frame (center) ========== */
+  /* scroll container uses snap to create reels-like vertical scroll */
   #scroll-wrap{
     height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;
     -webkit-overflow-scrolling:touch;background:linear-gradient(180deg,transparent,transparent);
@@ -70,6 +74,7 @@
     scroll-snap-align:center;position:relative;
   }
 
+  /* phone-like stage centered inside each section (reels size) */
   .stage {
     width: min(var(--phone-w), 92vw);
     height: min(var(--phone-h), calc(92vh - 40px));
@@ -80,12 +85,14 @@
     border: 1px solid rgba(255,255,255,0.06);
   }
 
+  /* background media (image/video) fills stage */
   .stage .bg{
     position:absolute;inset:0;object-fit:cover;width:100%;height:100%;z-index:0;
     filter:brightness(1);
   }
   .stage .bg.video{object-fit:cover}
 
+  /* glass-card inside stage */
   .card {
     position:relative;z-index:5;width:86%;max-width:760px;margin:auto;text-align:center;
     background:var(--glass-bg);backdrop-filter: blur(12px);-webkit-backdrop-filter: blur(12px);
@@ -93,6 +100,7 @@
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
   }
 
+  /* title styles (script + gradient rose) */
   .brand {
     font-family: "Playfair Display", serif;font-size:42px;margin:4px 0 6px;color:var(--rg-accent);
     background: linear-gradient(90deg, #d87d8c, #f3b4c4, #e89aaa);
@@ -112,12 +120,14 @@
     margin-top:12px;
   }
 
+  /* top-right controls: music, theme, gallery quick */
   .top-controls{
     position:absolute;top:12px;right:12px;z-index:8;display:flex;gap:8px;align-items:center;
   }
   .icon-btn{width:44px;height:44px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);cursor:pointer}
   .icon-btn svg{width:18px;height:18px;fill:var(--text)}
 
+  /* gallery modal */
   #gallery-modal{
     position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,7,7,0.7);z-index:99997;padding:20px;
   }
@@ -128,6 +138,7 @@
   .g-thumbs{display:flex;gap:8px;padding:10px;background:rgba(255,255,255,0.03);overflow:auto}
   .g-thumbs img{height:70px;border-radius:8px;cursor:pointer;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
 
+  /* Grid foto langsung */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -135,6 +146,7 @@
   margin-top: 14px;
 }
 
+/* Foto preview */
 .gallery-grid img {
   width: 100%;
   aspect-ratio: 1;
@@ -143,14 +155,18 @@
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   transition: transform .28s ease;
+
+  /* animasi awal */
   opacity: 0;
   animation: galleryFadeUp .6s ease forwards;
 }
 
+/* hover */
 .gallery-grid img:hover {
   transform: scale(1.03);
 }
 
+/* efek animasi */
 @keyframes galleryFadeUp {
   0% {
     opacity: 0;
@@ -164,15 +180,18 @@
 #g-main {
   transition: opacity .35s ease;
 }
+  /* guestbook */
   .guestbook-list{max-height:120px;overflow:auto;margin-top:10px;text-align:left;padding:6px;border-radius:8px;background:rgba(255,255,255,0.03)}
   .guestbook-item{padding:8px;border-bottom:1px dashed rgba(0,0,0,0.04);font-size:14px}
   .small{font-size:13px;color:rgba(75,59,60,0.8)}
 
+  /* countdown */
   .countdown{display:flex;gap:8px;justify-content:center;margin-top:10px}
   .countdown .unit{background:rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;min-width:54px}
   .unit .num{font-weight:700;font-size:18px}
   .unit .lbl{font-size:11px;color:rgba(75,59,60,0.8)}
 
+  /* petals (falling) - small circles with random sizes */
   .petal {
     position: fixed;
     top: -20px;
@@ -188,13 +207,14 @@
     to { transform: translateY(110vh) rotate(240deg); opacity:0; }
   }
 
+  /* responsive tweaks */
   @media(max-width:520px){
     :root{--phone-w:92vw;--phone-h:92vh}
     .card{padding:18px;border-radius:16px}
     .brand{font-size:34px}
     .photo{width:140px;height:140px}
   }
-
+/* ========== Scroll Reveal Animation ========== */
 .reveal {
   opacity: 0;
   transform: translateY(40px) scale(0.97);
@@ -207,6 +227,7 @@
   filter: blur(0);
 }
 
+/* Simple minimalist icons */
 .icon-btn svg {
   width: 20px;
   height: 20px;
@@ -215,6 +236,7 @@
   fill: none;
 }
 
+/* Timeline wrapper: posisi relative untuk garis tengah */
 .timeline {
   position: relative;
   display: flex;
@@ -223,28 +245,36 @@
   padding-left: 30px;
   margin-top: 16px;
 }
+
+/* Garis vertikal di tengah titik */
 .timeline::before {
   content: '';
   position: absolute;
-  left: 12px;
+  left: 12px; /* pas di tengah titik */
   top: 0;
   bottom: 0;
   width: 2px;
   background: rgba(216,125,140,0.3);
   border-radius: 1px;
 }
+
+/* Titik acara */
 .acara-dot {
   width:24px; height:24px; display:flex; align-items:center; justify-content:center; 
   font-size:14px; color:var(--rg-accent);
   flex-shrink:0;
   position: relative;
-  z-index:1;
+  z-index:1; /* di atas garis */
 }
+
+/* Konten acara */
 .acara-content {
   display:flex;
   flex-direction: column;
   gap:4px;
 }
+
+/* Slide-in dari kiri dengan opacity */
 .acara-item {
   display:flex;
   align-items:flex-start;
@@ -253,22 +283,31 @@
   transform: translateX(-40px) scale(0.95);
   transition: all 0.8s ease;
 }
+
+/* Ketika terlihat di viewport */
 .acara-item.show {
   opacity:1;
   transform: translateX(0) scale(1);
 }
+
+/* Staggered animation */
 .acara-item:nth-child(1) { transition-delay:0.1s; }
 .acara-item:nth-child(2) { transition-delay:0.25s; }
 .acara-item:nth-child(3) { transition-delay:0.4s; }
 .acara-item:nth-child(4) { transition-delay:0.55s; }
+
+/* Hover link maps */
 .acara-content a:hover {
   text-decoration:none;
   color:#f3b4c4;
 }
+
+/* Optional: scale on hover untuk konten */
 .acara-content:hover {
   transform: scale(1.02);
   transition: transform 0.3s ease;
 }
+/* Timeline wrapper */
 .timeline-love {
   position: relative;
   display: flex;
@@ -277,6 +316,8 @@
   padding-left: 50px;
   margin-top: 16px;
 }
+
+/* Garis vertikal di tengah titik */
 .timeline-love::before {
   content: '';
   position: absolute;
@@ -287,12 +328,16 @@
   background: rgba(216,125,140,0.3);
   border-radius: 1px;
 }
+
+/* Titik momen */
 .love-dot {
   width:28px; height:28px; display:flex; align-items:center; justify-content:center; 
   font-size:16px; flex-shrink:0;
   position: relative;
   z-index:1;
 }
+
+/* Foto momen */
 .love-photo {
   width:60px;
   height:60px;
@@ -301,11 +346,15 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   flex-shrink:0;
 }
+
+/* Konten momen */
 .love-content {
   display:flex;
   flex-direction: column;
   gap:4px;
 }
+
+/* Item timeline */
 .love-item {
   display:flex;
   align-items:center;
@@ -314,10 +363,14 @@
   transform: translateX(-40px) scale(0.95);
   transition: all 0.8s ease;
 }
+
+/* Ketika terlihat di viewport */
 .love-item.show {
   opacity:1;
   transform: translateX(0) scale(1);
 }
+
+/* Staggered animation */
 .love-item:nth-child(1) { transition-delay:0.1s; }
 .love-item:nth-child(2) { transition-delay:0.25s; }
 .love-item:nth-child(3) { transition-delay:0.4s; }
@@ -341,45 +394,6 @@
   </div>
 </div>
 
-<!-- GALLERY MODAL -->
-<div id="gallery-modal" aria-hidden="true">
-  <div class="g-wrap" role="dialog" aria-modal="true">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px">
-      <div style="font-weight:700;color:var(--rg-accent)">Galeri Foto</div>
-      <button id="close-gallery" class="icon-btn" title="Tutup" style="width:36px;height:36px;border-radius:8px">✕</button>
-    </div>
-    <div class="g-media" id="g-media">
-      <img id="g-main" src="img/gallery1.jpg" alt="Galeri">
-    </div>
-    <div class="g-thumbs" id="g-thumbs"></div>
-  </div>
-</div>
-
-<!-- MAIN SCROLL AREA (snap) -->
-<div id="scroll-wrap" aria-hidden="false">
-
-  <!-- SECTION: Opening Cover (reels-like stage) -->
-  <section>
-    <div class="stage reveal" role="region" aria-label="Sampul Undangan">
-      <video class="bg reveal" autoplay muted loop playsinline src="video/video-bg.mp4"></video>
-
-      <div class="top-controls" aria-hidden="false">
-        <div id="theme-toggle" class="icon-btn" title="Toggle Dark Mode" aria-pressed="false">◐</div>
-        <div id="open-gallery" class="icon-btn" title="Buka Galeri">⧉</div>
-      </div>
-
-      <div class="card reveal">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-          <div class="brand reveal">Amanda & Dimas</div>
-          <div class="subtitle reveal">Kami Mengundang Anda</div>
-          <div class="divider"></div>
-          <p class="muted">Sabtu, 12 Desember 2025 • 10:00 WIB</p>
-          <div style="height:12px"></div>
-          <button id="btn-open" class="btn reveal">Buka Undangan</button>
-        </div>
-      </div>
-    </div>
-  </section>
 <!-- GALLERY MODAL -->
 <div id="gallery-modal" aria-hidden="true">
   <div class="g-wrap" role="dialog" aria-modal="true">
@@ -459,7 +473,7 @@
     <div class="card reveal" style="padding:24px; border-radius:22px; backdrop-filter: blur(10px);">
       <div style="font-weight:700; font-size:24px; text-align:center; margin-bottom:12px; 
                   background: linear-gradient(90deg, #d87d8c, #f3b4c4, #e89aaa);
-                  -webkit-background-clip: text;
+                  background-clip: text;
                   -webkit-text-fill-color: transparent;">Rangkaian Acara</div>
       <div class="divider reveal"></div>
 
@@ -521,7 +535,7 @@
     <div class="card reveal" style="padding:24px; border-radius:22px; backdrop-filter: blur(10px);">
       <div style="font-weight:700; font-size:24px; text-align:center; margin-bottom:12px; 
                   background: linear-gradient(90deg, #d87d8c, #f3b4c4, #e89aaa);
-                  -webkit-background-clip: text;
+                  background-clip: text;
                   -webkit-text-fill-color: transparent;">Perjalanan Cinta</div>
       <div class="divider reveal"></div>
 
@@ -891,4 +905,3 @@ window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ gModal.classLi
 </script>
 </body>
 </html>
-
