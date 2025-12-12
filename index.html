@@ -417,10 +417,9 @@
       <video class="bg reveal" autoplay muted loop playsinline src="video/video-bg.mp4"></video>
 
       <div class="top-controls" aria-hidden="false">
-  <div id="theme-toggle" class="icon-btn" title="Toggle Dark Mode" aria-pressed="false">◐</div>
-  <div id="open-gallery" class="icon-btn" title="Buka Galeri">⧉</div>
-  <div id="music-toggle" class="icon-btn" title="Play / Pause Musik" aria-pressed="false">🎵</div>
-</div>
+        <div id="theme-toggle" class="icon-btn" title="Toggle Dark Mode" aria-pressed="false">◐</div>
+        <div id="open-gallery" class="icon-btn" title="Buka Galeri">⧉</div>
+      </div>
 
       <div class="card reveal">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
@@ -663,37 +662,41 @@ function spawnPetal(){
 }
 setInterval(spawnPetal, 500); // many petals
 
-/* ===================== Opening Button + Musik ===================== */
+/* ===================== Opening Button (splash-like behavior) ===================== */
 const btnOpen = document.getElementById('btn-open');
-const musicToggle = document.getElementById('music-toggle');
-
-// definisi musik
 const bgMusic = new Audio('https://www.dropbox.com/scl/fi/73h8voivs66ycn9hdqvqg/beautyfull-in-white.mp3?raw=1');
 bgMusic.loop = true;
 bgMusic.volume = 0.6;
-
-// klik tombol Buka Undangan → play musik & scroll
 btnOpen.addEventListener('click', () => {
-  if(bgMusic.paused){
-    bgMusic.play().catch(()=>{}); 
-    musicToggle.setAttribute('aria-pressed','true');
-    musicToggle.textContent = '🔊';
-  }
+  // gently play music (user action)
+  bgMusic.play().catch(()=>{ /* ignore autoplay errors */ });
+  // scroll to next section smoothly
   document.getElementById('scroll-wrap').scrollTo({top: window.innerHeight, behavior:'smooth'});
 });
 
-// klik tombol musik → play/pause
-musicToggle.addEventListener('click', () => {
-  if(bgMusic.paused){
-    bgMusic.play().catch(()=>{}); // mainkan musik
-    musicToggle.setAttribute('aria-pressed','true');
-    musicToggle.textContent = '🔊';
-  } else {
-    bgMusic.pause(); // pause musik
-    musicToggle.setAttribute('aria-pressed','false');
-    musicToggle.textContent = '🎵';
-  }
-});/* ===================== Gallery Modal ===================== */
+// Scroll reveal timeline
+const acaraItems = document.querySelectorAll('.acara-item');
+const observerAcara = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.25 });
+
+acaraItems.forEach(el => observerAcara.observe(el));
+
+/* ===================== Music & Theme Controls (top right) ===================== */
+const musicControl = document.querySelectorAll('.icon-btn')[1] || null;
+const themeToggle = document.getElementById('theme-toggle');
+let isDark = false;
+themeToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  isDark = !isDark;
+  themeToggle.setAttribute('aria-pressed', String(isDark));
+});
+
+/* ===================== Gallery Modal ===================== */
 const gModal = document.getElementById('gallery-modal');
 const gMain = document.getElementById('g-main');
 const gThumbs = document.getElementById('g-thumbs');
@@ -902,8 +905,3 @@ window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ gModal.classLi
 </script>
 </body>
 </html>
-
-
-
-
-
